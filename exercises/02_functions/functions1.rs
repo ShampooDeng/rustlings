@@ -3,8 +3,14 @@
 // Execute `rustlings hint functions1` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
+
+fn call_me(name:&str){
+    //help: function arguments must have a statically known size,
+    //borrowed types always have a known size
+    println!("How dare you! {}", name);
+}
 
 fn main() {
-    call_me();
+    let user_name = "wm";
+    call_me(user_name);
 }
