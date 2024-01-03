@@ -6,18 +6,62 @@
 // I AM NOT DONE
 
 fn trim_me(input: &str) -> String {
-    // TODO: Remove whitespace from both ends of a string!
-    ???
+    let mut output = String::new();
+    let len = input.len();
+
+    for i in 0..len {
+        let mut array: [char; 3] = ['&'; 3];
+        let mut j = 0usize;
+
+        if i == 0{
+            array[0] = '*';
+            j = 1;
+            let slice = &input[i..i + 2];
+            for c in slice.chars() {
+                array[j] = c;
+                j += 1;
+            }
+        } else if i == len - 1 {
+            array[2] = '*';
+            let slice = &input[i-1..];
+            for c in slice.chars() {
+                array[j] = c;
+                j += 1;
+            }
+        } else {
+            let slice = &input[i - 1..i + 2];
+            for c in slice.chars() {
+                array[j] = c;
+                j += 1;
+            }
+        }
+
+        if array[1] == ' ' && array[0] != ' ' && array[2] != ' '{
+            output.push(array[1]);
+        } else if array[1] != ' ' {
+            output.push(array[1]);
+        }
+    }
+    output
 }
 
 fn compose_me(input: &str) -> String {
-    // TODO: Add " world!" to the string! There's multiple ways to do this!
-    ???
+    let mut output = String::new();
+    input.clone_into(&mut output);
+    output.push_str(" world!");
+    output
 }
 
 fn replace_me(input: &str) -> String {
-    // TODO: Replace "cars" in the string with "balloons"!
-    ???
+    let mut output = String::new();
+    input.clone_into(&mut output);
+
+    if input.rfind("cars") != None {
+        output = input.replace("cars", "balloons");
+    } else if input.rfind("balloons") != None {
+        output = input.replace("balloons", "cars");
+    }
+    output
 }
 
 #[cfg(test)]
@@ -26,7 +70,7 @@ mod tests {
 
     #[test]
     fn trim_a_string() {
-        assert_eq!(trim_me("Hello!     "), "Hello!");
+        assert_eq!(trim_me("Hello!      "), "Hello!");
         assert_eq!(trim_me("  What's up!"), "What's up!");
         assert_eq!(trim_me("   Hola!  "), "Hola!");
     }
