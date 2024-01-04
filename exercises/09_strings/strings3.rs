@@ -5,36 +5,34 @@
 
 // I AM NOT DONE
 
+fn fill_array(array:&mut [char;3], slice:&str, index:usize) {
+    let mut j = index;
+    for c in slice.chars() {
+        array[j] = c;
+        j += 1;
+    }
+}
+
 fn trim_me(input: &str) -> String {
     let mut output = String::new();
     let len = input.len();
 
     for i in 0..len {
         let mut array: [char; 3] = ['&'; 3];
-        let mut j = 0usize;
+        let mut slice:&str = "";
+        let mut start = 0usize;
 
         if i == 0{
             array[0] = '*';
-            j = 1;
-            let slice = &input[i..i + 2];
-            for c in slice.chars() {
-                array[j] = c;
-                j += 1;
-            }
+            slice = &input[i..i + 2];
+            start = 1;
         } else if i == len - 1 {
             array[2] = '*';
-            let slice = &input[i-1..];
-            for c in slice.chars() {
-                array[j] = c;
-                j += 1;
-            }
+            slice = &input[i-1..];
         } else {
-            let slice = &input[i - 1..i + 2];
-            for c in slice.chars() {
-                array[j] = c;
-                j += 1;
-            }
+            slice = &input[i - 1..i + 2];
         }
+        fill_array(&mut array, slice, start);
 
         if array[1] == ' ' && array[0] != ' ' && array[2] != ' '{
             output.push(array[1]);
