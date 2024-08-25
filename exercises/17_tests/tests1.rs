@@ -10,12 +10,13 @@
 // Execute `rustlings hint tests1` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
 #[cfg(test)]
 mod tests {
+    use std::cmp::Ordering;
+
     #[test]
     fn you_can_assert() {
-        assert!();
+        let a = 1.1;
+        assert!(matches!(a.partial_cmp(&(1.2)), Some(Ordering::Less)));
     }
 }
